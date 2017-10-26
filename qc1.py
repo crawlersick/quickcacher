@@ -44,11 +44,13 @@ while inputs:
                 inputs.remove(s)
                 s.close()
     for s in writable:
-        msg="test"
+        msg="HTTP/1.1 200 OK\nContent-Type: text/html\n\n<html>123</html>\n"
         print('  sending {!r} to {}'.format(msg,s.getpeername()),file=sys.stderr)
         s.sendall(msg.encode())
-        if s in outputs:
-            outputs.remove(s)
+        #if s in outputs:
+        outputs.remove(s)
+        inputs.remove(s)
+        s.close()
     for s in exceptional:
         print('exception condition on', s.getpeername(),file=sys.stderr)
         inputs.remove(s)
